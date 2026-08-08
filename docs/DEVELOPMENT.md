@@ -14,11 +14,17 @@ cp .env.example .env   # fill in values — docs/ENVIRONMENT.md
 createdb myra          # or point DATABASE_URL at any Postgres
 ```
 
+Note: the API does **not** auto-load `.env` — export the variables into the process environment (e.g. `set -a; source .env; set +a`, or use your process manager / `dotenv-cli`).
+
 ## Run
+Both dev servers require `PORT` to be set explicitly:
 ```bash
-pnpm --filter @workspace/api-server run dev    # API (reads PORT, default from env)
-pnpm --filter @workspace/vox-console run dev   # frontend (Vite dev server, proxies /api)
+set -a; source .env; set +a
+PORT=3001 pnpm --filter @workspace/api-server run dev     # API on :3001
+PORT=3000 BASE_PATH=/ pnpm --filter @workspace/vox-console run dev  # frontend on :3000
 ```
+The frontend calls the API with relative `/api/...` URLs, so in local dev you need the two behind one origin — put a reverse proxy (nginx/Caddy) in front that serves the frontend and routes `/api/*` to :3001, or add a `server.proxy` entry for `/api` in `artifacts/vox-console/vite.config.ts`. (On the original hosted workspace this routing is provided by the platform.)
+
 Migrations apply automatically when the API starts.
 
 ## Everyday commands
