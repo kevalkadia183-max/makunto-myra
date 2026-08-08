@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "VOX Voice Console"
+description = "A voice-driven AI console with an oscilloscope ring visualizer. Users click the ring to speak, the app transcribes their voice, sends it to an AI, and reads the reply aloud using text-to-speech."
+version = "1.0.0"
+id = "artifacts/vox-console"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23685
+
+[services.development]
+run = "pnpm --filter @workspace/vox-console run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vox-console", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/vox-console/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23685"
+BASE_PATH = "/"

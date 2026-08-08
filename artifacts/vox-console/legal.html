@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Makunto — Legal, Help &amp; About</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap');
+:root {
+  --bg: #07070D; --panel: #11111A; --accent: #8B5CF6;
+  --text: #FFFFFF; --text-dim: #9CA3AF; --text-muted: #6B7280;
+  --border: rgba(255,255,255,0.08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'Inter', sans-serif; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 720px; margin: 0 auto;
+  padding: calc(24px + env(safe-area-inset-top, 0px))
+           calc(20px + env(safe-area-inset-right, 0px))
+           calc(80px + env(safe-area-inset-bottom, 0px))
+           calc(20px + env(safe-area-inset-left, 0px));
+}
+.top {
+  display: flex; align-items: center; gap: 12px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--border); margin-bottom: 24px;
+}
+.top img { width: 34px; height: 34px; }
+.top .brand {
+  font-family: 'Sora', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 3px;
+  background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.back {
+  margin-left: auto; color: #a78bfa; text-decoration: none; font-size: 13px; font-weight: 600;
+  border: 1px solid rgba(139,92,246,0.35); padding: 8px 14px; border-radius: 12px;
+}
+.toc {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+}
+.toc a {
+  color: var(--text-dim); text-decoration: none; font-size: 12px; font-weight: 600;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  padding: 7px 12px; border-radius: 999px; transition: all 0.15s;
+}
+.toc a:hover { color: #fff; border-color: rgba(139,92,246,0.4); }
+h1 { font-family: 'Sora', sans-serif; font-size: 26px; margin: 0 0 8px; }
+.updated { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; }
+section { margin-bottom: 40px; scroll-margin-top: 20px; }
+h2 {
+  font-family: 'Sora', sans-serif; font-size: 18px; color: #a78bfa;
+  border-bottom: 1px solid var(--border); padding-bottom: 10px; margin: 0 0 14px;
+}
+h3 { font-size: 15px; margin: 18px 0 6px; }
+p, li { font-size: 14.5px; color: var(--text-dim); }
+strong { color: var(--text); }
+a { color: #a78bfa; }
+footer { border-top: 1px solid var(--border); padding-top: 20px; color: var(--text-muted); font-size: 12.5px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <img src="logo.png" alt="Makunto logo">
+    <span class="brand">MAKUNTO</span>
+    <a class="back" href="./">← Back to app</a>
+  </div>
+
+  <h1>Legal, Help &amp; About</h1>
+  <p class="updated">Last updated: August 6, 2026</p>
+
+  <nav class="toc">
+    <a href="#about">About</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="#terms">Terms of Service</a>
+    <a href="#cookies">Cookie Policy</a>
+    <a href="#aup">Acceptable Use</a>
+    <a href="#community">Community Guidelines</a>
+    <a href="#ai">AI Usage Policy</a>
+    <a href="#retention">Data Retention</a>
+    <a href="#gdpr">GDPR &amp; Data Processing</a>
+    <a href="#deletion">Account Deletion</a>
+    <a href="#dmca">Copyright &amp; DMCA</a>
+    <a href="#security">Security Overview</a>
+    <a href="#accessibility">Accessibility</a>
+    <a href="#licenses">Open Source Licenses</a>
+    <a href="#faq">FAQ</a>
+    <a href="#support">Support &amp; Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Makunto</h2>
+    <p><strong>Makunto</strong> is a voice-first AI companion for content creators. Myra, your AI companion, tracks your social media channels, explains your analytics out loud in plain language, watches competitors and trends, and coaches you on growing your audience — all through natural voice conversation.</p>
+    <p>Makunto currently supports YouTube, Instagram and Facebook, with more platforms on the way.</p>
+  </section>
+
+  <section id="privacy">
+    <h2>Privacy Policy</h2>
+    <h3>What we collect</h3>
+    <ul>
+      <li><strong>Account information</strong> — your name and email address, provided when you sign up (directly or through Google sign-in).</li>
+      <li><strong>Connected platform data</strong> — when you connect a social account (e.g. YouTube), we access channel statistics, video analytics and related metadata through the platform's official API, only with your explicit authorization.</li>
+      <li><strong>Voice input</strong> — what you say to Myra is transcribed to text to generate a response. Audio is processed transiently and is not stored as a recording.</li>
+      <li><strong>Conversation history</strong> — your text conversations with Myra are stored so she can remember context across sessions. You can clear them at any time.</li>
+      <li><strong>Technical data</strong> — basic diagnostics (errors, device type) used solely to keep the service working.</li>
+    </ul>
+    <h3>What we do NOT do</h3>
+    <ul>
+      <li>We do not sell your personal data.</li>
+      <li>We do not post to, modify or delete anything on your connected social accounts.</li>
+      <li>We do not use your private analytics to train AI models.</li>
+      <li>We do not share your data with third parties except the service providers strictly required to operate the product (AI processing, voice synthesis, authentication, hosting).</li>
+    </ul>
+    <h3>Google user data</h3>
+    <p>Makunto's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements. YouTube data is accessed read-only, displayed to you, and used only to power the analytics and coaching features you see in the app. You can revoke access at any time in your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Google Account permissions</a>.</p>
+    <h3>Your rights</h3>
+    <p>You may request access to, correction of, or deletion of your personal data at any time — see <a href="#deletion">Account Deletion</a> and <a href="#support">Contact</a>.</p>
+  </section>
+
+  <section id="terms">
+    <h2>Terms of Service</h2>
+    <ol>
+      <li><strong>The service.</strong> Makunto provides AI-powered social media analytics and coaching. It is an informational tool — insights and suggestions are not guarantees of growth or revenue.</li>
+      <li><strong>Your account.</strong> You are responsible for keeping your sign-in credentials secure and for all activity under your account. You must be at least 13 years old (or the minimum digital-consent age in your country) to use Makunto.</li>
+      <li><strong>Connected platforms.</strong> Connecting a social account means you authorize Makunto to read its analytics via the platform's official API. You must have the right to connect any account you connect. Platform data remains subject to that platform's own terms.</li>
+      <li><strong>Acceptable use.</strong> You agree to the <a href="#aup">Acceptable Use Policy</a> below.</li>
+      <li><strong>AI output.</strong> Myra's responses are generated by AI and may occasionally be inaccurate. Always verify important figures in your platform's own dashboard before making business decisions.</li>
+      <li><strong>Availability.</strong> The service is provided "as is" without warranty of uninterrupted availability. We may modify or discontinue features with reasonable notice.</li>
+      <li><strong>Liability.</strong> To the maximum extent permitted by law, Makunto is not liable for indirect or consequential damages arising from use of the service.</li>
+      <li><strong>Termination.</strong> You may stop using the service and delete your account at any time. We may suspend accounts that violate these terms.</li>
+      <li><strong>Changes.</strong> We may update these terms; material changes will be announced in the app before they take effect.</li>
+    </ol>
+  </section>
+
+  <section id="cookies">
+    <h2>Cookie Policy</h2>
+    <p>Makunto uses only <strong>strictly necessary</strong> cookies and browser storage:</p>
+    <ul>
+      <li><strong>Authentication cookies</strong> — set by our sign-in provider to keep you securely signed in across visits.</li>
+      <li><strong>Local preferences</strong> — voice, language and personality settings stored in your browser's local storage. They never leave your device.</li>
+    </ul>
+    <p>We do not use advertising or cross-site tracking cookies.</p>
+  </section>
+
+  <section id="aup">
+    <h2>Acceptable Use Policy</h2>
+    <p>You may not use Makunto to:</p>
+    <ul>
+      <li>Access accounts or data you do not own or lack permission to access.</li>
+      <li>Harass, defame or harm others, including creators tracked as competitors.</li>
+      <li>Attempt to probe, overload, or bypass security or rate limits of the service.</li>
+      <li>Scrape, resell or redistribute data obtained through the service.</li>
+      <li>Violate the terms of any connected platform (YouTube, Instagram, Facebook).</li>
+      <li>Engage in any unlawful activity.</li>
+    </ul>
+  </section>
+
+  <section id="community">
+    <h2>Community Guidelines</h2>
+    <p>Makunto exists to help creators grow with honest insight. Keep it constructive:</p>
+    <ul>
+      <li>Track competitors for learning and benchmarking — not for harassment or brigading.</li>
+      <li>Use Myra's coaching to improve your own content, not to copy others' work.</li>
+      <li>Report bugs and abuse to <a href="#support">support</a> — we read everything.</li>
+    </ul>
+  </section>
+
+  <section id="ai">
+    <h2>AI Usage Policy</h2>
+    <ul>
+      <li><strong>What the AI does.</strong> Myra uses large language models to interpret your questions, analyze your channel statistics, and speak responses using text-to-speech.</li>
+      <li><strong>Human oversight.</strong> AI output is assistive. Verify important numbers in your platform's official dashboard before acting on them.</li>
+      <li><strong>No training on your data.</strong> Your private analytics and conversations are used only to serve your session — they are not used to train models.</li>
+      <li><strong>Transparency.</strong> You are always talking to an AI. Myra will never pretend to be a human.</li>
+    </ul>
+  </section>
+
+  <section id="retention">
+    <h2>Data Retention Policy</h2>
+    <ul>
+      <li><strong>Conversation history</strong> — kept until you clear it in the app or delete your account.</li>
+      <li><strong>Analytics snapshots</strong> — recent snapshots of connected-channel statistics are kept to compute day-over-day changes; older snapshots are periodically pruned.</li>
+      <li><strong>Voice audio</strong> — processed in real time; recordings are not retained after transcription.</li>
+      <li><strong>Account data</strong> — retained while your account is active and deleted upon account deletion (see below).</li>
+    </ul>
+  </section>
+
+  <section id="gdpr">
+    <h2>Data Processing &amp; GDPR Information</h2>
+    <p>For users in the EU/EEA, UK and similar jurisdictions:</p>
+    <ul>
+      <li><strong>Legal basis.</strong> We process your data to perform our contract with you (providing the service) and, for optional features, on the basis of your consent.</li>
+      <li><strong>Your rights.</strong> Access, rectification, erasure, portability, restriction and objection. Exercise them via <a href="#support">support</a>; we respond within 30 days.</li>
+      <li><strong>Processors.</strong> We use vetted service providers for hosting, authentication, AI processing and voice synthesis, bound by data-processing agreements.</li>
+      <li><strong>Transfers.</strong> Where data is processed outside your jurisdiction, we rely on appropriate safeguards such as standard contractual clauses.</li>
+      <li><strong>Complaints.</strong> You may lodge a complaint with your local data-protection authority.</li>
+    </ul>
+  </section>
+
+  <section id="deletion">
+    <h2>Account Deletion Policy</h2>
+    <p>You can request deletion of your account and all associated data at any time by contacting <a href="#support">support</a> from your account email. Deletion includes your profile, conversation history, connected-account records and analytics snapshots. Deletion is permanent and completed within 30 days of the request. Disconnecting a social platform (without deleting your account) immediately stops new data collection for that platform.</p>
+  </section>
+
+  <section id="dmca">
+    <h2>Copyright &amp; DMCA Policy</h2>
+    <p>Makunto displays analytics and public metadata via official platform APIs and does not host user-uploaded media. If you believe content surfaced through the service infringes your copyright, send a notice to <a href="#support">support</a> including: identification of the work, the allegedly infringing material, your contact information, a good-faith statement, and your physical or electronic signature. We respond to valid notices promptly, and repeat infringers' accounts may be terminated.</p>
+  </section>
+
+  <section id="security">
+    <h2>Security &amp; Privacy Overview</h2>
+    <ul>
+      <li>All traffic is encrypted in transit with HTTPS/TLS.</li>
+      <li>Sign-in is handled by a dedicated authentication provider (Clerk) — Makunto never sees or stores your password.</li>
+      <li>Social platforms are connected via OAuth — Makunto never asks for your platform passwords, and access is read-only.</li>
+      <li>Server-side authorization checks protect every personal-data endpoint; anonymous visitors cannot access anyone's data.</li>
+      <li>You can revoke Makunto's platform access at any time from the platform's own security settings.</li>
+    </ul>
+    <p>Found a vulnerability? Please report it responsibly via <a href="#support">support</a> — we take reports seriously and respond quickly.</p>
+  </section>
+
+  <section id="accessibility">
+    <h2>Accessibility Statement</h2>
+    <p>Makunto is designed to be usable by everyone. Being voice-first, the core experience works without reading the screen. We also provide: adjustable speech rate and pitch, high-contrast dark theme, large touch targets, reduced-motion support honoring your device setting, and text transcripts of every conversation in the Log tab. If you encounter an accessibility barrier, please tell <a href="#support">support</a> — fixing it becomes a priority.</p>
+  </section>
+
+  <section id="licenses">
+    <h2>Open Source Licenses</h2>
+    <p>Makunto is built with open-source software, including: <strong>Vite</strong> (MIT), <strong>Express</strong> (MIT), <strong>Drizzle ORM</strong> (Apache-2.0), <strong>Clerk SDK</strong> (MIT), <strong>Inter</strong> and <strong>Sora</strong> typefaces (SIL Open Font License). We are grateful to their maintainers. Full license texts are available from each project's repository.</p>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <h3>Is Makunto free?</h3>
+    <p>Makunto is currently in early access. Pricing for premium features will be announced in the app before anything changes.</p>
+    <h3>Which platforms can I connect?</h3>
+    <p>YouTube, Instagram and Facebook today. X (Twitter), TikTok, LinkedIn, Threads and Pinterest are coming soon.</p>
+    <h3>Can Myra post or change anything on my accounts?</h3>
+    <p>No. Access is strictly read-only analytics. Myra can never post, edit or delete anything.</p>
+    <h3>Why does Myra need microphone access?</h3>
+    <p>Only to hear your questions. Audio is transcribed in real time and not stored as a recording.</p>
+    <h3>My numbers look different from my platform dashboard — why?</h3>
+    <p>Platform APIs update on a delay (YouTube analytics can lag up to 48 hours). Myra always tells you the freshest data the API provides.</p>
+    <h3>How do I disconnect a platform or delete my data?</h3>
+    <p>Disconnect any platform from the Social Accounts page. For full account deletion, see the <a href="#deletion">Account Deletion Policy</a>.</p>
+  </section>
+
+  <section id="support">
+    <h2>Support Center &amp; Contact</h2>
+    <p>Questions, bug reports, feature requests, privacy requests, DMCA notices — one address for everything:</p>
+    <p style="font-size:16px;"><strong>📧 <a href="mailto:support@makunto.app">support@makunto.app</a></strong></p>
+    <p>We aim to reply within 2 business days. When reporting a bug, include your device type and what Myra said or did — it helps enormously.</p>
+  </section>
+
+  <footer>
+    Makunto · Your AI Creator Companion · © 2026 Makunto. All rights reserved.<br>
+    <a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="#support">Contact</a>
+  </footer>
+</div>
+</body>
+</html>
