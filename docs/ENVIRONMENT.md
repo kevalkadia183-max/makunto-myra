@@ -23,7 +23,7 @@ All configuration is environment-driven; nothing is hardcoded to a host. Copy `.
 | `AI_INTEGRATIONS_ANTHROPIC_API_KEY` / `AI_INTEGRATIONS_ANTHROPIC_BASE_URL` | optional | Anthropic-compatible endpoint |
 
 ## Voice provider
-| `ELEVENLABS_API_KEY` | optional | Server-level ElevenLabs key. Users can also save their own key in Settings (stored per-user in the DB). |
+| `ELEVENLABS_API_KEY` | optional | Server-level ElevenLabs key. Users can also save their own key in Settings (stored per-user in the DB — currently plain text; see docs/DATABASE.md). |
 
 ## Google / YouTube
 | `YOUTUBE_API_KEY` | yes | YouTube Data API (public data, competitors) |
