@@ -10,7 +10,7 @@
 | `messages` | Individual user/assistant messages | `conversation_id` → conversations (cascade) |
 | `channels` | Tracked social accounts — own and competitors (`is_competitor`) | has many `channel_snapshots` |
 | `channel_snapshots` | One stats snapshot per channel per day (subs, views, recent videos JSON) | `channel_id` → channels (cascade); unique index `(channel_id, snapshot_date)` |
-| `voice_keys` | Per-user encrypted ElevenLabs API key | keyed by `client_id` |
+| `voice_keys` | Per-user ElevenLabs API key. **Stored as plain text today** — encrypting at rest is a known TODO; restrict DB access accordingly | keyed by `client_id` |
 
 User identity is Clerk's user id in the form `user:<clerk_id>` (`client_id` columns). The `user:` namespace is reserved for verified sessions.
 
