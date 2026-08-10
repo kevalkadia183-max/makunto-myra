@@ -852,7 +852,6 @@ body.recording .skel, body.recording .skel-card { display: none !important; }
           <button class="mini-btn" id="downloadReportBtn">CSV</button>
         </div>
       </div>
-      <div id="briefArea"></div>
       <div id="reportArea"></div>
     </div>
 
@@ -949,13 +948,13 @@ body.recording .skel, body.recording .skel-card { display: none !important; }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 12h4l2-9 5 18 3-9h6"></path></svg>
       <span>INSIGHTS</span>
     </button>
-    <button class="tab-btn" data-view="viewSetup">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-      <span>ACCOUNTS</span>
-    </button>
     <button class="tab-btn" data-view="viewComp">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
       <span>RIVALS</span>
+    </button>
+    <button class="tab-btn" data-view="viewSetup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>ACCOUNTS</span>
     </button>
   </nav>
 </div>
@@ -2770,19 +2769,29 @@ window.onerror = function(msg, src, line, col){
   }
   let greeted = false;
   let greetedAsGuest = false;
+  let authUserName = '';
   async function autoGreet(){
     if(greeted) return;
     greeted = true;
     greetedAsGuest = !isSignedIn();
     try{
-      const resp = await apiFetch('/vox/greeting', { method: 'POST', body: JSON.stringify({ personality: settings.personality }) });
+      const resp = await apiFetch('/vox/greeting', { method: 'POST', body: JSON.stringify({
+        personality: settings.personality,
+        name: authUserName || undefined,
+        localHour: new Date().getHours()
+      }) });
       if(!resp.ok) return;
       const data = await resp.json();
       const text = (data.reply || '').trim();
       if(!text) return;
       messages.push({ role: 'assistant', content: text });
       addEntryDisplay('vox', text);
-      if(!NEEDS_GESTURE){
+      // Speak right away whenever the platform allows it: desktop always,
+      // mobile once audio is already unlocked (returning within the session).
+      // Otherwise the very first tap anywhere plays it — mobile browsers
+      // physically block sound before a first user gesture.
+      if(!NEEDS_GESTURE || audioUnlocked || hadGesture){
+        hadGesture = true;
         try{ speak(text); }catch(e){ setState('idle'); }
       } else {
         pendingGreeting = text;
@@ -2822,7 +2831,7 @@ window.onerror = function(msg, src, line, col){
       tabBtns.forEach(b => b.classList.toggle('active', b === btn));
       views.forEach(v => v.classList.toggle('active', v.id === btn.dataset.view));
       closeInsight(); // leaving Insights via the nav should never leave the overlay up
-      if(btn.dataset.view === 'viewDashboard'){ loadReport(); loadBrief(); }
+      if(btn.dataset.view === 'viewDashboard'){ loadReport(); }
       if(btn.dataset.view === 'viewRadar') loadInsights();
       if(btn.dataset.view === 'viewSetup' || btn.dataset.view === 'viewComp') loadChannels();
     });
@@ -2850,43 +2859,6 @@ window.onerror = function(msg, src, line, col){
   // ---------- Dashboard ----------
   const reportArea = document.getElementById('reportArea');
   let reportLoading = false;
-  // ---------- Daily AI Brief ----------
-  const briefArea = document.getElementById('briefArea');
-  let briefLoading = false, briefLoadedDate = '';
-  async function loadBrief(){
-    const today = new Date().toISOString().slice(0, 10);
-    if(briefLoading || briefLoadedDate === today) return;
-    briefLoading = true;
-    briefArea.innerHTML = '<div class="brief-card"><div class="brief-title">TODAY\'S BRIEF</div><div class="empty-mini">— Myra is writing your brief —</div></div>';
-    try{
-      const resp = await apiFetch('/vox/brief');
-      if(!resp.ok){
-        briefArea.innerHTML = ''; // no channels yet, or brief unavailable — stay quiet
-        return;
-      }
-      const data = await resp.json();
-      const b = data.brief || {};
-      const row = (icon, label, text) => text ?
-        '<div class="brief-row"><span class="brief-ico">' + icon + '</span><div><span class="brief-lbl">' + label + '</span> ' + esc(text) + '</div></div>' : '';
-      briefArea.innerHTML =
-        '<div class="brief-card">' +
-          '<div class="brief-title">TODAY\'S BRIEF <span class="brief-date">' + esc(data.date || '') + '</span></div>' +
-          row('❤️', 'Health:', b.health) +
-          row('👀', 'Competitors:', b.competitors) +
-          row('📈', 'Trending:', b.trend) +
-          row('🎯', 'Opportunity:', b.opportunity) +
-          row('⚠️', 'Warning:', b.warning) +
-          row('🎬', 'Upload:', b.upload) +
-          row('⚡', 'Quick win:', b.quickWin) +
-        '</div>';
-      briefLoadedDate = today;
-    }catch(e){
-      briefArea.innerHTML = '';
-    }finally{
-      briefLoading = false;
-    }
-  }
-
   async function loadReport(){
     if(reportLoading) return;
     reportLoading = true;
@@ -2903,11 +2875,13 @@ window.onerror = function(msg, src, line, col){
           (data.code === 'NOT_CONFIGURED' ? '<br><br>YouTube access is being set up — check back soon.' : '') + '</div>';
         return;
       }
-      if(!data.channels || data.channels.length === 0){
-        reportArea.innerHTML = '<div class="empty-mini">— no channels yet — add yours in SETUP —</div>';
+      // Dashboard shows YOUR channels only — competitors live in the Rivals tab.
+      const ownChannels = (data.channels || []).filter(ch => !ch.isCompetitor);
+      if(ownChannels.length === 0){
+        reportArea.innerHTML = '<div class="empty-mini">— no accounts connected yet — add yours in the ACCOUNTS tab —</div>';
         return;
       }
-      reportArea.innerHTML = data.channels.map(ch => {
+      reportArea.innerHTML = ownChannels.map(ch => {
         const d = ch.deltas || {};
         const videos = (ch.recentVideos || []).slice(0, 5).map(v =>
           '<div class="video-row"><span class="v-title">' + esc(v.title) + '</span><span class="v-views">' + fmt(v.views) + ' views</span></div>'
@@ -2919,7 +2893,7 @@ window.onerror = function(msg, src, line, col){
           '<div class="ch-head">' +
             (ch.thumbnailUrl ? '<img src="' + esc(ch.thumbnailUrl) + '" alt="">' : '') +
             '<div><div class="ch-name">' + esc(ch.title) + '</div><div class="ch-handle">' + esc(ch.handle) + ' · ' + esc(ch.platform || 'youtube') + '</div></div>' +
-            '<div class="ch-actions"><span class="ch-badge ' + (ch.isCompetitor ? '' : 'own') + '">' + (ch.isCompetitor ? 'COMPETITOR' : 'YOURS') + '</span></div>' +
+            '<div class="ch-actions"><span class="ch-badge own">YOURS</span></div>' +
           '</div>' +
           '<div class="stat-row">' +
             '<div class="stat"><div class="num">' + fmt(ch.subscribers) + deltaSpan(d.subscribers) + '</div><div class="lbl">' + subsLbl + '</div></div>' +
@@ -3366,9 +3340,7 @@ window.onerror = function(msg, src, line, col){
   function refreshAllData(){
     loadChannels();
     loadConversations();
-    briefLoadedDate = '';
     loadReport();
-    loadBrief();
     insData = { channels: null, brief: null, trending: null };
     loadInsights(true);
   }
@@ -3470,6 +3442,7 @@ window.onerror = function(msg, src, line, col){
 
   function applyAuthState(user){
     settleAuthBoot();
+    authUserName = (user && user.name) ? String(user.name).split(' ')[0] : '';
     checkAdmin(user);
     const delRow = document.getElementById('deleteAccountRow');
     let demoActive = false;
@@ -3499,8 +3472,7 @@ window.onerror = function(msg, src, line, col){
         // Identity changed — everything on screen belongs to someone else now.
         loadChannels();
         loadConversations();
-        briefLoadedDate = '';
-        if(document.getElementById('viewDashboard').classList.contains('active')){ loadReport(); loadBrief(); }
+        if(document.getElementById('viewDashboard').classList.contains('active')){ loadReport(); }
       }
       // Startup cache: warm the server's analytics cache and preload the
       // Insights data in the background, so Myra's first real answer comes
